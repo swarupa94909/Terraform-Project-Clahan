@@ -3,7 +3,7 @@ resource "aws_vpc" "main" {
   instance_tenancy = "default"
 
   tags = {
-    Name = "venkat-vpc"
+    Name = "swarupa-vpc"
   }
 }
 resource "aws_subnet" "main_public" {
@@ -30,7 +30,7 @@ resource "aws_internet_gateway" "gw" {
     Name = "igw"
   }
 }
- resource"aws_route_table" "venkey_public" {
+ resource"aws_route_table" "swarupa_public" {
   vpc_id = aws_vpc.main.id
 
   route {
@@ -38,25 +38,25 @@ resource "aws_internet_gateway" "gw" {
     gateway_id = aws_internet_gateway.gw.id
   }
   tags = {
-    Name = "venkey_public"
+    Name = "swarupa_public"
   }
 } 
 
-resource "aws_route_table" "venkey_private" {
+resource "aws_route_table" "swarupa_private" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "venkey_private"
+    Name = "swarupa_private"
   }
 }
 
 # 
 resource "aws_route_table_association" "public" {
   subnet_id      = aws_subnet.main_public.id
-  route_table_id = aws_route_table.venkey_public.id
+  route_table_id = aws_route_table.swarupa_public.id
 }
 
 resource "aws_route_table_association" "private" {
   subnet_id      = aws_subnet.main_private.id
-  route_table_id = aws_route_table.venkey_private.id
+  route_table_id = aws_route_table.swarupa_private.id
 }
